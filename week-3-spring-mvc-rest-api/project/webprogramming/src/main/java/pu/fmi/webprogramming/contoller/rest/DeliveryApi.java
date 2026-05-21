@@ -32,8 +32,13 @@ public class DeliveryApi {
     customers.add(customer2);
   }
 
-  // TODO: Добавете ново REST API - PUT '/api/deliveries/{id}/courier'
-  // и използвай добавената от теб логика на DeliveryService.assignCourier метода
+  @PutMapping("/{id}/courier") // PUT /api/deliveries/{id}/courier?courierId=
+  public ResponseEntity<Delivery> assignCourier(
+          @PathVariable Long id,
+          @RequestParam Long courierId) {
+    Delivery delivery = deliveryServiceInterface.assignCourier(id, courierId);
+    return ResponseEntity.ok(delivery);
+  }
 
   @PutMapping("/{id}") // PUT /api/deliveries/{id}?status=
   public boolean updateDeliveryStatus(
